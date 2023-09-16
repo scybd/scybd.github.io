@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-在Ｕbuntu中使用OpenCV-C++和ZBar库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/16/%E5%9C%A8%EF%BC%B5buntu%E4%B8%AD%E4%BD%BF%E7%94%A8OpenCV-C++%E5%92%8CZBar%E5%BA%93/" class="article-date">
+  <time class="dt-published" datetime="2023-09-16T05:49:14.785Z" itemprop="datePublished">2023-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="在Ubuntu中使用OpenCV-C-和ZBar库"><a href="#在Ubuntu中使用OpenCV-C-和ZBar库" class="headerlink" title="在Ｕbuntu中使用OpenCV-C++和ZBar库"></a>在Ｕbuntu中使用OpenCV-C++和ZBar库</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
+<li>学校srp的内容是做一个快递站的货物放置小车，笔者负责其中的视觉部分，暂定我的任务是识别二维码告诉下位机货物的货架号，本可以使用openmv等实现，但考虑到后续可能会有的视觉引导机械臂放置货物，故还是选择OpenCV这一更加灵活的视觉库，并使用C++编写，以期望最后在树莓派上获得更高的帧率．</li>
+<li>笔者使用的是Ubuntu20.04，OpenCV是在装ROS时一起安装的，版本为4.2．</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>安装ZBar库,这里使用apt安装而不是用源码</li>
+</ol>
+<ul>
+<li><pre><code class="bash">  sudo apt install libzbar-dev
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- 安装后再在vscode中包含ZBar的头文件就已经不会再报错了</span><br><span class="line">    ![1.png](https://img1.imgtp.com/2023/06/24/blGZJ1Pg.png)</span><br><span class="line"></span><br><span class="line">2. 写测试程序</span><br><span class="line">- 写一个测试程序，实现读取下面图片，识别其中码的类型并读取码的内容打印到终端</span><br><span class="line">- ![2.png](https://img1.imgtp.com/2023/06/24/JLe3CDCT.png)</span><br><span class="line">- ```cpp</span><br><span class="line">    #include &lt;iostream&gt;</span><br><span class="line">    #include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">    #include &lt;zbar.h&gt;</span><br><span class="line"></span><br><span class="line">    using namespace cv;</span><br><span class="line">    using namespace std;</span><br><span class="line">    using namespace zbar;</span><br><span class="line"></span><br><span class="line">    int main()</span><br><span class="line">    &#123;</span><br><span class="line">        ImageScanner scanner;</span><br><span class="line">        scanner.set_config(ZBAR_NONE, ZBAR_CFG_ENABLE, 1);</span><br><span class="line">        Mat image = imread(&quot;1.png&quot;);</span><br><span class="line"></span><br><span class="line">        if (!image.data)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;请确认图片&quot; &lt;&lt; endl;</span><br><span class="line">            system(&quot;pause&quot;);</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Mat gray;</span><br><span class="line">        cvtColor(image, gray, COLOR_RGB2GRAY);</span><br><span class="line">        </span><br><span class="line">        Image imageZbar(gray.cols, gray.rows, &quot;Y800&quot;, gray.data, gray.cols * gray.rows);</span><br><span class="line">        int n=scanner.scan(imageZbar);</span><br><span class="line"></span><br><span class="line">        Image::SymbolIterator symbol = imageZbar.symbol_begin();</span><br><span class="line">        if (imageZbar.symbol_begin() == imageZbar.symbol_end())</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;查询条码失败，请检查图片！&quot; &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        for (; symbol != imageZbar.symbol_end(); ++symbol)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;类型：&quot; &lt;&lt; endl &lt;&lt; symbol-&gt;get_type_name() &lt;&lt; endl;</span><br><span class="line">            cout &lt;&lt; &quot;内容：&quot; &lt;&lt; endl &lt;&lt; symbol-&gt;get_data() &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        imshow(&quot;Source Image&quot;, image);</span><br><span class="line">        waitKey();</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<ol start="3">
+<li>写CMakeLists.txt</li>
+</ol>
+<ul>
+<li><pre><code class="cmake">  cmake_minimum_required(VERSION 3.10)
+
+  project(srp CXX)
+
+  add_executable(srp
+      main.cpp
+  )
+
+  find_package(OpenCV 4 REQUIRED)
+
+  find_package(ZBar REQUIRED)
+
+  target_include_directories(srp
+      PUBLIC
+          $&#123;OpenCV_INCLUDE_DIRS&#125;
+          $&#123;ZBar_INCLUDE_DIRS&#125;
+          &quot;include&quot;
+  )
+
+  target_link_libraries(srp
+      PUBLIC
+          $&#123;OpenCV_LIBS&#125; 
+          $&#123;ZBAR_LIBRARIES&#125;
+  )
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- 顺便提一嘴这个小工程的结构为：![3.png](https://img1.imgtp.com/2023/06/24/6tibYSnY.png)</span><br><span class="line">- 然后在终端进入build目录，执行```cmake ..```，不出意外应该会报错：</span><br><span class="line">```bash</span><br><span class="line">    -- The CXX compiler identification is GNU 9.4.0</span><br><span class="line">    -- Check for working CXX compiler: /usr/bin/c++</span><br><span class="line">    -- Check for working CXX compiler: /usr/bin/c++ -- works</span><br><span class="line">    -- Detecting CXX compiler ABI info</span><br><span class="line">    -- Detecting CXX compiler ABI info - done</span><br><span class="line">    -- Detecting CXX compile features</span><br><span class="line">    -- Detecting CXX compile features - done</span><br><span class="line">    -- Found OpenCV: /usr (found suitable version &quot;4.2.0&quot;, minimum required is &quot;4&quot;) </span><br><span class="line">    CMake Error at CMakeLists.txt:13 (find_package):</span><br><span class="line">    By not providing &quot;FindZBar.cmake&quot; in CMAKE_MODULE_PATH this project has</span><br><span class="line">    asked CMake to find a package configuration file provided by &quot;ZBar&quot;, but</span><br><span class="line">    CMake did not find one.</span><br><span class="line"></span><br><span class="line">    Could not find a package configuration file provided by &quot;ZBar&quot; with any of</span><br><span class="line">    the following names:</span><br><span class="line"></span><br><span class="line">        ZBarConfig.cmake</span><br><span class="line">        zbar-config.cmake</span><br><span class="line"></span><br><span class="line">    Add the installation prefix of &quot;ZBar&quot; to CMAKE_PREFIX_PATH or set</span><br><span class="line">    &quot;ZBar_DIR&quot; to a directory containing one of the above files.  If &quot;ZBar&quot;</span><br><span class="line">    provides a separate development package or SDK, be sure it has been</span><br><span class="line">    installed.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    -- Configuring incomplete, errors occurred!</span><br><span class="line">    See also &quot;/home/thy/Documents/blogtest/build/CMakeFiles/CMakeOutput.log&quot;.</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li>报错说找不到 <code>ZBarConfig.cmake</code> 和 <code>zbar-config.cmake</code> ，我们先确定一下这两个文件是否确实不存在．在终端中输入 <code>dpkg-query -L libzbar-dev</code> 列出已安装的 libzbar-dev 包中的文件路径，我的输出如下，可以看到确实没有那两个文件  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/.</span><br><span class="line">/usr</span><br><span class="line">/usr/include</span><br><span class="line">/usr/include/zbar</span><br><span class="line">/usr/include/zbar/Decoder.h</span><br><span class="line">/usr/include/zbar/Exception.h</span><br><span class="line">/usr/include/zbar/Image.h</span><br><span class="line">/usr/include/zbar/ImageScanner.h</span><br><span class="line">/usr/include/zbar/Processor.h</span><br><span class="line">/usr/include/zbar/Scanner.h</span><br><span class="line">/usr/include/zbar/Symbol.h</span><br><span class="line">/usr/include/zbar/Video.h</span><br><span class="line">/usr/include/zbar/Window.h</span><br><span class="line">/usr/include/zbar.h</span><br><span class="line">/usr/lib</span><br><span class="line">/usr/lib/x86_64-linux-gnu</span><br><span class="line">/usr/lib/x86_64-linux-gnu/libzbar.a</span><br><span class="line">/usr/lib/x86_64-linux-gnu/pkgconfig</span><br><span class="line">/usr/lib/x86_64-linux-gnu/pkgconfig/zbar.pc</span><br><span class="line">/usr/share</span><br><span class="line">/usr/share/doc</span><br><span class="line">/usr/share/doc/libzbar-dev</span><br><span class="line">/usr/share/doc/libzbar-dev/copyright</span><br><span class="line">/usr/lib/x86_64-linux-gnu/libzbar.so</span><br><span class="line">/usr/share/doc/libzbar-dev/changelog.Debian.gz</span><br></pre></td></tr></table></figure></li>
+<li>笔者首先想到的是ZBar库是否正确安装，在终端输入 <code>pkg-config --libs zbar</code> ，输出为 <code>-lzbar</code> ，库已正确安装．故可能的原因是不同包管理系统提供的文件结构不同，只能手动创建一个 <code>FindZBar.cmake</code> 文件．</li>
+</ul>
+<ol start="4">
+<li>写FindZBar.cmake</li>
+</ol>
+<ul>
+<li>在工程中新建一个cmake目录，在其中新建FindZBar.cmake文件  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(PkgConfig REQUIRED)</span><br><span class="line">pkg_check_modules(ZBAR REQUIRED IMPORTED_TARGET zbar)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">TARGET</span> PkgConfig::ZBAR)</span><br><span class="line"><span class="keyword">set</span>(ZBAR_FOUND <span class="keyword">TRUE</span>)</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line"><span class="keyword">set</span>(ZBAR_FOUND <span class="keyword">FALSE</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(ZBAR_INCLUDE_DIRS <span class="variable">$&#123;PkgConfig_ZBAR_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">set</span>(ZBAR_LIBRARIES PkgConfig::ZBAR)</span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;ZBAR_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;ZBAR_LIBRARIES&#125;</span> INTERFACE <span class="variable">$&#123;ZBAR_LINK_LIBRARIES&#125;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>此外在CMakeLists.txt中加一句话 <code>set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake&quot;)</code> ，最后的CMakeLists.txt为：  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(srp CXX)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(srp</span><br><span class="line">    main.cpp</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_MODULE_PATH <span class="variable">$&#123;CMAKE_MODULE_PATH&#125;</span> <span class="string">&quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV <span class="number">4</span> REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(ZBar REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(srp</span><br><span class="line">    PUBLIC</span><br><span class="line">        <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;ZBar_INCLUDE_DIRS&#125;</span></span><br><span class="line">        <span class="string">&quot;include&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(srp</span><br><span class="line">    PUBLIC</span><br><span class="line">        <span class="variable">$&#123;OpenCV_LIBS&#125;</span> </span><br><span class="line">        <span class="variable">$&#123;ZBAR_LIBRARIES&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>应该要成功编译了</li>
+</ol>
+<ul>
+<li>进入build目录，最好先删干净原来产生的中间文件，然后输入 <code>cmake ..</code> ，接着输入 <code>make</code> ，应该是不会报错的，生成的可执行文件为<strong>srp</strong>，输入 <code>./srp</code> 运行它：<img src="https://img1.imgtp.com/2023/06/24/9nIBzl9O.png" alt="4.png"></li>
+<li>注意如果读不到图片可以将图片路径换为绝对路径</li>
+</ul>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><ul>
+<li>后续会持续更新该srp的项目代码</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/16/%E5%9C%A8%EF%BC%B5buntu%E4%B8%AD%E4%BD%BF%E7%94%A8OpenCV-C++%E5%92%8CZBar%E5%BA%93/" data-id="clmlo36ee0001ahdc0476630t" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-联想拯救者Y7000P-RTX3060安装显卡驱动-CUDA-cudnn-anaconda-pytorch-pycharm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/" class="article-date">
+  <time class="dt-published" datetime="2023-06-06T08:38:45.000Z" itemprop="datePublished">2023-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/">联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>安装ubuntu20.04操作系统</li>
+<li>关闭原有开源驱动:<ol>
+<li>删除原有nvidia驱动（选做）<code>sudo apt purge nvidia*</code>
+        
+          <p class="article-more-link">
+            <a href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/" data-id="clmlo36ea0000ahdc6s2c3auo" data-title="联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/16/%E5%9C%A8%EF%BC%B5buntu%E4%B8%AD%E4%BD%BF%E7%94%A8OpenCV-C++%E5%92%8CZBar%E5%BA%93/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/">联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

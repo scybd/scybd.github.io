@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="安装ubuntu20.04操作系统 关闭原有开源驱动: 删除原有nvidia驱动（选做）sudo apt purge nvidia*">
+<meta property="og:type" content="article">
+<meta property="og:title" content="联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm">
+<meta property="og:url" content="http://example.com/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="安装ubuntu20.04操作系统 关闭原有开源驱动: 删除原有nvidia驱动（选做）sudo apt purge nvidia*">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-06T08:38:45.000Z">
+<meta property="article:modified_time" content="2023-06-06T09:22:33.899Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-联想拯救者Y7000P-RTX3060安装显卡驱动-CUDA-cudnn-anaconda-pytorch-pycharm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/" class="article-date">
+  <time class="dt-published" datetime="2023-06-06T08:38:45.000Z" itemprop="datePublished">2023-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>安装ubuntu20.04操作系统</li>
+<li>关闭原有开源驱动:<ol>
+<li>删除原有nvidia驱动（选做）<code>sudo apt purge nvidia*</code> <span id="more"></span></li>
+<li>关闭系统自带驱动nouveau <code>sudo gedit /etc/modprobe.d/blacklist.conf</code>并在文件末尾加上  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br></pre></td></tr></table></figure></li>
+<li>应用更改 <code>sudo update-initramfs -u</code></li>
+<li>重启　<code>reboot</code></li>
+</ol>
+</li>
+<li>安装nvidia驱动<ol>
+<li>在<strong>Software &amp; Update</strong>中选择最上方的驱动安装，安装完成后按要求重启</li>
+<li>终端输入<code>nvidia-smi</code>即可查看显卡信息，右上角的CUDA Version为支持的最高版本的CUDA</li>
+</ol>
+</li>
+<li>安装CUDA<ol>
+<li>在<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">官网</a>中选择合适版本，注意选择<strong>runfile</strong>文件</li>
+<li>在终端执行官网给出的两条命令  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://developer.download.nvidia.com/compute/cuda/*.*.*/local_installers/cuda_*.*.*_*.*.*_linux.run</span><br><span class="line">sudo sh cuda_*.*.*_*.*.*_linux.run</span><br></pre></td></tr></table></figure></li>
+<li>安装时注意不要再安装它推荐的显卡驱动</li>
+</ol>
+</li>
+<li>配置CUDA环境变量<ol>
+<li><code>sudo gedit ~/.bashrc</code></li>
+<li>在文件末尾加上:（*为CUDA版本）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/usr/local/cuda-*.*/bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-*.*/lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><code>source ~/.bashrc</code></li>
+<li>查看CUDA信息 <code>nvcc -V</code></li>
+</ol>
+</li>
+<li>安装cudnn<ol>
+<li>在<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cudnn">官网</a>选择合适版本的cudnn，下载　<strong>cuDNN Library for Linux （x86_64）</strong>　安装包</li>
+<li>解压 <code>tar -zxvf cudnnXXXXXXXXXX.tgz</code></li>
+<li>将cudnn相关文件放入CUDA文件夹中：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp cuda/lib64/* /usr/local/cuda-*.*/lib64/</span><br><span class="line">cp cuda/include/* /usr/local/cuda-*.*/include/</span><br></pre></td></tr></table></figure></li>
+<li>查看cudnn的信息 <code>cat /usr/local/cuda-11.3/include/cudnn_version.h | grep CUDNN_MAJOR -A 2</code></li>
+</ol>
+</li>
+<li>安装Anaconda<ol>
+<li>在<a target="_blank" rel="noopener" href="https://www.anaconda.com/">Anaconda官网</a>下载后执行 <code>bash AnacondaXXXXXXX.sh</code></li>
+</ol>
+</li>
+<li>安装Pytorch<ol>
+<li>建立pytorch的虚拟环境　<code>conda create -n pytorch</code></li>
+<li>进入该虚拟环境 <code>conda activate pytorch</code></li>
+<li>在<a target="_blank" rel="noopener" href="https://pytorch.org/">Pytorch官网</a>找到合适版本，执行官方给出的命令</li>
+<li>终端输入 <code>python</code></li>
+<li><code>import torch</code> 回车后若无输出则pytorch安装成功</li>
+<li><code>torch.cuda.is_available()</code> 回车后若输出<strong>True</strong>则cuda可用</li>
+<li>按<strong>Ctrl+z</strong>退出python</li>
+</ol>
+</li>
+<li>安装Pycharm<ol>
+<li>在<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">Pycharm官网</a>找到合适版本，下载安装包</li>
+<li>解压 <code>tar -zxvf pycharmXXXXX.tar.gz</code></li>
+<li>进入Pycharm文件夹中的bin文件夹 <code>cd ./pycharm-community-*.*/bin</code></li>
+<li>运行Pycharm <code>sh pycharm.sh</code></li>
+<li>在<strong>setting</strong>中选用anaconda的pytorch环境中的python解释器</li>
+<li>新建.py文件，输入:  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure>
+  运行该文件，输出True则配置完成</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/" data-id="clmlo36ea0000ahdc6s2c3auo" data-title="联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/16/%E5%9C%A8%EF%BC%B5buntu%E4%B8%AD%E4%BD%BF%E7%94%A8OpenCV-C++%E5%92%8CZBar%E5%BA%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/16/%E5%9C%A8%EF%BC%B5buntu%E4%B8%AD%E4%BD%BF%E7%94%A8OpenCV-C++%E5%92%8CZBar%E5%BA%93/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/06/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85Y7000P-RTX3060%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8-CUDA-cudnn-anaconda-pytorch-pycharm/">联想拯救者Y7000P-RTX3060安装显卡驱动 CUDA cudnn anaconda pytorch pycharm</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
