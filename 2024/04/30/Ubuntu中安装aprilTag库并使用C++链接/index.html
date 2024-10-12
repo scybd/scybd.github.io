@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>树莓派4B使用硬件串口 | 社畜预备队的主页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="稳定可靠的视觉基准系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派4B使用硬件串口">
+<meta property="og:url" content="https://scybd.github.io/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:site_name" content="社畜预备队的主页">
+<meta property="og:description" content="稳定可靠的视觉基准系统">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://scybd.github.io/2-1.png">
+<meta property="article:published_time" content="2024-04-30T13:22:54.000Z">
+<meta property="article:modified_time" content="2024-10-12T02:26:33.857Z">
+<meta property="article:author" content="THY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://scybd.github.io/2-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="社畜预备队的主页" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">社畜预备队的主页</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一条失去梦想的咸鱼</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://scybd.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Ubuntu中安装aprilTag库并使用C++链接" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/" class="article-date">
+  <time class="dt-published" datetime="2024-04-30T13:22:54.000Z" itemprop="datePublished">2024-04-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/aprilTag/">aprilTag</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      树莓派4B使用硬件串口
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>稳定可靠的视觉基准系统</p>
+<span id="more"></span>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li><code>git clone https://github.com/AprilRobotics/apriltag.git</code></li>
+<li><code>cd apriltag</code></li>
+<li><code>cmake -B build -DCMAKE_BUILD_TYPE=Release</code></li>
+<li><code>sudo cmake --build build --target install</code></li>
+<li><code>make -j</code></li>
+<li><code>sudo make install</code></li>
+</ul>
+<h2 id="修改（重要）"><a href="#修改（重要）" class="headerlink" title="修改（重要）"></a>修改（重要）</h2><ul>
+<li><code>sudo nano /usr/local/share/apriltag/cmake/apriltagTargets-release.cmake</code></li>
+<li>在原文件的 <strong>set(CMAKE_IMPORT_FILE_VERSION 1)</strong> 后面添加  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(apriltag_INCLUDE_DIR <span class="string">&quot;/usr/local/include/apriltag&quot;</span>)</span><br><span class="line"><span class="keyword">find_library</span>(apriltag_LIBRARY1 NAMES libapriltag.so PATHS <span class="string">&quot;/usr/local/lib&quot;</span> ) </span><br><span class="line"><span class="keyword">find_library</span>(apriltag_LIBRARY2 NAMES libapriltag.so.<span class="number">3</span> PATHS <span class="string">&quot;/usr/local/lib&quot;</span> ) </span><br><span class="line"><span class="keyword">find_library</span>(apriltag_LIBRARY3 NAMES libapriltag.so.<span class="number">3.1</span>.<span class="number">0</span> PATHS <span class="string">&quot;/usr/local/lib&quot;</span> ) </span><br><span class="line"><span class="keyword">set</span>(apriltag_LIBS <span class="variable">$&#123;apriltag_LIBRARY1&#125;</span></span><br><span class="line">	<span class="variable">$&#123;apriltag_LIBRARY2&#125;</span></span><br><span class="line"><span class="variable">$&#123;apriltag_LIBRARY3&#125;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li>新建一个目录，其结构如下：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">└── main.cpp</span><br></pre></td></tr></table></figure></li>
+<li>CMakeLists.txt  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(test_code CXX)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">    <span class="string">&quot;main.cpp&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV <span class="number">4</span> REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(apriltag REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">    PRIVATE</span><br><span class="line">        <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;apriltag_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">    PRIVATE</span><br><span class="line">        <span class="variable">$&#123;OpenCV_LIBS&#125;</span> </span><br><span class="line">        apriltag</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>main.cpp  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;apriltag.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tag36h11.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化 AprilTag 检测器</span></span><br><span class="line">    <span class="type">apriltag_family_t</span> *tf = <span class="built_in">tag36h11_create</span>();</span><br><span class="line">    <span class="type">apriltag_detector_t</span> *td = <span class="built_in">apriltag_detector_create</span>();</span><br><span class="line">    <span class="built_in">apriltag_detector_add_family</span>(td, tf);</span><br><span class="line"></span><br><span class="line">    <span class="function">VideoCapture <span class="title">cap</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">    cap.<span class="built_in">set</span>(cv::CAP_PROP_FRAME_WIDTH, <span class="number">640</span>);</span><br><span class="line">    cap.<span class="built_in">set</span>(cv::CAP_PROP_FRAME_HEIGHT, <span class="number">480</span>);</span><br><span class="line">    cap.<span class="built_in">set</span>(cv::CAP_PROP_FOURCC, cv::VideoWriter::<span class="built_in">fourcc</span>(<span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;P&#x27;</span>, <span class="string">&#x27;G&#x27;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        Mat frame, frame_gray;</span><br><span class="line">        <span class="type">bool</span> isRead = cap.<span class="built_in">read</span>(frame);</span><br><span class="line">        <span class="keyword">if</span> (!isRead) &#123; <span class="keyword">break</span>; &#125;</span><br><span class="line">        <span class="built_in">cvtColor</span>(frame, frame_gray, COLOR_BGR2GRAY);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检测标签</span></span><br><span class="line">        <span class="type">image_u8_t</span> im = &#123;.width = frame_gray.cols, .height = frame_gray.rows, .stride = frame_gray.cols, .buf = frame_gray.data&#125;;</span><br><span class="line">        <span class="type">zarray_t</span> *detections = <span class="built_in">apriltag_detector_detect</span>(td, &amp;im);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 显示检测结果</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">zarray_size</span>(detections); i++) &#123;</span><br><span class="line">            <span class="type">apriltag_detection_t</span> *det;</span><br><span class="line">            <span class="built_in">zarray_get</span>(detections, i, &amp;det);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">putText</span>(frame, <span class="built_in">to_string</span>(det-&gt;id), <span class="built_in">Point</span>(det-&gt;c[<span class="number">0</span>],det-&gt;c[<span class="number">1</span>]), FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, <span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">putText</span>(frame, <span class="built_in">to_string</span>(i), <span class="built_in">Point</span>(det-&gt;p[i][<span class="number">0</span>],det-&gt;p[i][<span class="number">1</span>]), FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, <span class="built_in">Scalar</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>);</span><br><span class="line">                <span class="type">int</span> next = (i + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                cv::<span class="built_in">line</span>(frame, <span class="built_in">Point</span>(det-&gt;p[i][<span class="number">0</span>],det-&gt;p[i][<span class="number">1</span>]), <span class="built_in">Point</span>(det-&gt;p[next][<span class="number">0</span>],det-&gt;p[next][<span class="number">1</span>]), cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">apriltag_detection_destroy</span>(det);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">imshow</span>(<span class="string">&quot;frame&quot;</span>, frame);</span><br><span class="line">        <span class="built_in">waitKey</span>(<span class="number">30</span>);</span><br><span class="line">        <span class="built_in">zarray_destroy</span>(detections);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 循环结束后销毁检测器和家族</span></span><br><span class="line">    <span class="built_in">apriltag_detector_destroy</span>(td);</span><br><span class="line">    <span class="built_in">tag36h11_destroy</span>(tf);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在根目录下<code>mkdir build &amp;&amp; cd build &amp;&amp; cmake .. &amp;&amp; make</code>，最后<code>./test_code</code>即可</li>
+<li><img src="/./2-1.png" alt="res"></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://scybd.github.io/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/" data-id="cm25jcm3c0000vidchzujhncr" data-title="树莓派4B使用硬件串口" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/30/%E6%A0%91%E8%8E%93%E6%B4%BE4B%E4%BD%BF%E7%94%A8%E7%A1%AC%E4%BB%B6%E4%B8%B2%E5%8F%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树莓派4B使用硬件串口</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/aprilTag/">aprilTag</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/">树莓派4B使用硬件串口</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/30/%E6%A0%91%E8%8E%93%E6%B4%BE4B%E4%BD%BF%E7%94%A8%E7%A1%AC%E4%BB%B6%E4%B8%B2%E5%8F%A3/">树莓派4B使用硬件串口</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/30/%E6%A0%91%E8%8E%93%E6%B4%BE4B%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85OpenCV/">树莓派4B编译源码安装OpenCV</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 THY<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
