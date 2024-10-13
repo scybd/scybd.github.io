@@ -1,0 +1,68 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>12V转9V转5V电源板方案分享</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="9A大电流输出
+
+
+12V转9V转5V电源板方案分享
+立创开源链接
+
+背景实验室最近在做灵巧手，手上有6个微型伺服电缸，每个电缸的工作电压为9V，峰值电流为1.5A，故要找到一个输出电流能力强的DCDC降压芯片。此外电源板还需要5V的电压给通信板上的can芯片供电。这些需求最终都放在了一块半径24mm的圆形PCB上。
+设计过程
+12V转9V，使用XL6016E1
+
+这是其手册的描述：
+参考手册里的设计，原理图如下：
+这里FB引脚的参考电压是1.25V，输出电压的计算公式为$1.25*(1+R1&amp;#x2F;R2)$。
+
+
+9V转5V，使用LM2596SX-5.0
+
+这是其手册描述：
+参考手册里的设计，原理图如下：
+
+
+PCB绘制
+
+顶层为12V转9V网络：
+底层为9V转5V网络：
+layout时遵循以下规则：.."><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="社畜预备队的主页" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">THY's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">12V转9V转5V电源板方案分享</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#12V%E8%BD%AC9V%E8%BD%AC5V%E7%94%B5%E6%BA%90%E6%9D%BF%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB"><span class="toc-text">12V转9V转5V电源板方案分享</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="toc-text">设计过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%8A%E6%8E%A5%E6%B5%8B%E8%AF%95"><span class="toc-text">焊接测试</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">12V转9V转5V电源板方案分享</h1><time class="has-text-grey" datetime="2024-05-31T09:32:34.000Z">2024-05-31</time><article class="mt-2 post-content"><p>9A大电流输出</p>
+<span id="more"></span>
+
+<h2 id="12V转9V转5V电源板方案分享"><a href="#12V转9V转5V电源板方案分享" class="headerlink" title="12V转9V转5V电源板方案分享"></a>12V转9V转5V电源板方案分享</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://oshwhub.com/yuan_scuter/12v-zhuan-9v-zhuan-5v">立创开源链接</a></p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>实验室最近在做灵巧手，手上有<strong>6个</strong>微型伺服电缸，每个电缸的工作电压为9V，峰值电流为<strong>1.5A</strong>，故要找到一个输出电流能力强的DCDC降压芯片。此外电源板还需要5V的电压给通信板上的can芯片供电。这些需求最终都放在了一块半径24mm的圆形PCB上。</p>
+<h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ol>
+<li><p>12V转9V，使用<strong>XL6016E1</strong></p>
+<ul>
+<li>这是其手册的描述：<img src="https://i-blog.csdnimg.cn/blog_migrate/10a5c42ceba1fa6dd7b3a4b8a946388f.png" alt="XL4016"></li>
+<li>参考手册里的设计，原理图如下：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/9fe6a355ea331d64dc257bf090b296ef.png" alt="XL4016原理图"></li>
+<li>这里<strong>FB</strong>引脚的参考电压是1.25V，输出电压的计算公式为$1.25*(1+R1&#x2F;R2)$。</li>
+</ul>
+</li>
+<li><p>9V转5V，使用<strong>LM2596SX-5.0</strong></p>
+<ul>
+<li>这是其手册描述：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/199c362675ef4b6998300e8fa0fd60a3.png" alt="LM2596"></li>
+<li>参考手册里的设计，原理图如下：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/56f3f91d020b0a0ba1a95281c2372482.png" alt="LM2596原理图"></li>
+</ul>
+</li>
+<li><p>PCB绘制</p>
+<ul>
+<li>顶层为12V转9V网络：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/a35aaed2b81450b45a213206c966ab47.png" alt="正面"></li>
+<li>底层为9V转5V网络：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/efe67d4ffb3a66e1ec0e561793252fb2.png" alt="背面"></li>
+<li>layout时遵循以下规则：<ul>
+<li>输入电容容量小的靠近芯片，输出电容容量大的靠近芯片</li>
+<li>与FB相连的两个电阻尽量靠近FB，走线细且短</li>
+<li>电感底部挖空</li>
+<li>过大电流的网络开窗，以便焊接时堆锡</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="焊接测试"><a href="#焊接测试" class="headerlink" title="焊接测试"></a>焊接测试</h3><ul>
+<li><img src="https://i-blog.csdnimg.cn/blog_migrate/bbb5f38660ca932e437da4ddab4e78c8.jpeg" alt="实物正面"></li>
+<li><img src="https://i-blog.csdnimg.cn/blog_migrate/33a5e54f177532fc5971993f69b22b6a.jpeg" alt="实物背面"></li>
+<li>暂时未测试持续过大电流的发热如何，不过XL4016上可以先贴个散热片</li>
+</ul>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/" title="Ubuntu中安装aprilTag库并使用C++链接"><span class="has-text-weight-semibold">Next: Ubuntu中安装aprilTag库并使用C++链接</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/haojen"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> THY 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
