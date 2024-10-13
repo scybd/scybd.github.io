@@ -35,21 +35,21 @@ layout时遵循以下规则：.."><meta name="generator" content="Hexo 7.3.0"><l
 <h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ol>
 <li><p>12V转9V，使用<strong>XL6016E1</strong></p>
 <ul>
-<li>这是其手册的描述：<img src="https://i-blog.csdnimg.cn/blog_migrate/10a5c42ceba1fa6dd7b3a4b8a946388f.png" alt="XL4016"></li>
-<li>参考手册里的设计，原理图如下：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/9fe6a355ea331d64dc257bf090b296ef.png" alt="XL4016原理图"></li>
+<li>这是其手册的描述：<img src="https://www.helloimg.com/i/2024/10/13/670b75aac8b68.png" alt="XL4016"></li>
+<li>参考手册里的设计，原理图如下：<br><img src="https://www.helloimg.com/i/2024/10/13/670b75aac9dbb.png" alt="XL4016原理图"></li>
 <li>这里<strong>FB</strong>引脚的参考电压是1.25V，输出电压的计算公式为$1.25*(1+R1&#x2F;R2)$。</li>
 </ul>
 </li>
 <li><p>9V转5V，使用<strong>LM2596SX-5.0</strong></p>
 <ul>
-<li>这是其手册描述：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/199c362675ef4b6998300e8fa0fd60a3.png" alt="LM2596"></li>
-<li>参考手册里的设计，原理图如下：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/56f3f91d020b0a0ba1a95281c2372482.png" alt="LM2596原理图"></li>
+<li>这是其手册描述：<br><img src="https://www.helloimg.com/i/2024/10/13/670b75aae5cd2.png" alt="LM2596"></li>
+<li>参考手册里的设计，原理图如下：<br><img src="https://www.helloimg.com/i/2024/10/13/670b75aab5de3.png" alt="LM2596原理图"></li>
 </ul>
 </li>
 <li><p>PCB绘制</p>
 <ul>
-<li>顶层为12V转9V网络：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/a35aaed2b81450b45a213206c966ab47.png" alt="正面"></li>
-<li>底层为9V转5V网络：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/efe67d4ffb3a66e1ec0e561793252fb2.png" alt="背面"></li>
+<li>顶层为12V转9V网络：<br><img src="https://www.helloimg.com/i/2024/10/13/670b75ab1543d.png" alt="正面"></li>
+<li>底层为9V转5V网络：<br><img src="https://www.helloimg.com/i/2024/10/13/670b75aae1111.png" alt="背面"></li>
 <li>layout时遵循以下规则：<ul>
 <li>输入电容容量小的靠近芯片，输出电容容量大的靠近芯片</li>
 <li>与FB相连的两个电阻尽量靠近FB，走线细且短</li>
@@ -61,8 +61,8 @@ layout时遵循以下规则：.."><meta name="generator" content="Hexo 7.3.0"><l
 </li>
 </ol>
 <h3 id="焊接测试"><a href="#焊接测试" class="headerlink" title="焊接测试"></a>焊接测试</h3><ul>
-<li><img src="https://i-blog.csdnimg.cn/blog_migrate/bbb5f38660ca932e437da4ddab4e78c8.jpeg" alt="实物正面"></li>
-<li><img src="https://i-blog.csdnimg.cn/blog_migrate/33a5e54f177532fc5971993f69b22b6a.jpeg" alt="实物背面"></li>
+<li><img src="https://www.helloimg.com/i/2024/10/13/670b75ad6e610.jpg" alt="实物正面"></li>
+<li><img src="https://www.helloimg.com/i/2024/10/13/670b75ad481ba.jpg" alt="实物背面"></li>
 <li>暂时未测试持续过大电流的发热如何，不过XL4016上可以先贴个散热片</li>
 </ul>
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2024/04/30/Ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85aprilTag%E5%BA%93%E5%B9%B6%E4%BD%BF%E7%94%A8C++%E9%93%BE%E6%8E%A5/" title="Ubuntu中安装aprilTag库并使用C++链接"><span class="has-text-weight-semibold">Next: Ubuntu中安装aprilTag库并使用C++链接</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/scybd"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> scybd 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

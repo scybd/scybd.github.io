@@ -27,7 +27,7 @@ ls /dev/ttyAMA*查看是否成功.."><meta name="generator" content="Hexo 7.3.0"
 <h2 id="树莓派4B硬件串口数量"><a href="#树莓派4B硬件串口数量" class="headerlink" title="树莓派4B硬件串口数量"></a>树莓派4B硬件串口数量</h2><ul>
 <li><p>4B相比前几代增加了4个硬件串口，具体看下图</p>
 </li>
-<li><p><img src="/./1.png" alt="串口资源"></p>
+<li><p><img src="https://www.helloimg.com/i/2024/10/13/670b738f6cb8f.png" alt="串口资源"></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/computers/configuration.html#configuring-uarts">这是官网的描述</a></p>
 </li>
@@ -35,14 +35,14 @@ ls /dev/ttyAMA*查看是否成功.."><meta name="generator" content="Hexo 7.3.0"
 </li>
 </ul>
 <h2 id="硬件串口的信息查看"><a href="#硬件串口的信息查看" class="headerlink" title="硬件串口的信息查看"></a>硬件串口的信息查看</h2><ul>
-<li>比如我们想查看UART2的信息，就可以在终端输入<code>dtoverlay -h uart2</code>，终端输出：<img src="/./2.png" alt="uart2"></li>
+<li>比如我们想查看UART2的信息，就可以在终端输入<code>dtoverlay -h uart2</code>，终端输出：<img src="https://www.helloimg.com/i/2024/10/13/670b738f150a2.png" alt="uart2"></li>
 <li>这里显示串口2使用的是GPIO0~3，其中<strong>GPIO0</strong>是<strong>TX</strong>，<strong>GPIO1</strong>是<strong>RX</strong>，GPIO2和GPIO3是CTS&#x2F;RTS用于硬件流控，通常的使用过程中不需要考虑。</li>
-<li>这里附上4b的引脚定义图：<img src="/./3.png" alt="引脚定义图"></li>
+<li>这里附上4b的引脚定义图：<img src="https://www.helloimg.com/i/2024/10/13/670b738fbf2c0.png" alt="引脚定义图"></li>
 </ul>
 <h2 id="配置串口2"><a href="#配置串口2" class="headerlink" title="配置串口2"></a>配置串口2</h2><ol>
 <li><code>sudo nano /boot/config.txt</code>打开配置文件，在文件<strong>末尾</strong>添加<code>dtoverlay=uart2</code></li>
 <li>重启树莓派</li>
-<li><code>ls /dev/ttyAMA*</code>查看是否成功开启，有ttyAMA1说明成功开启，另外这里的&#x2F;dev&#x2F;ttyAMA0是默认开启的，用于树莓派的蓝牙通信。<strong>现在就可以使用该串口了!</strong><img src="/./4.png" alt="ama"></li>
+<li><code>ls /dev/ttyAMA*</code>查看是否成功开启，有ttyAMA1说明成功开启，另外这里的&#x2F;dev&#x2F;ttyAMA0是默认开启的，用于树莓派的蓝牙通信。<strong>现在就可以使用该串口了!</strong><img src="https://www.helloimg.com/i/2024/10/13/670b738f2baed.png" alt="ama"></li>
 </ol>
 <h2 id="c-例程"><a href="#c-例程" class="headerlink" title="c++例程"></a>c++例程</h2><pre><code class="cpp">#include &lt;iostream&gt;
 #include &lt;unistd.h&gt;
