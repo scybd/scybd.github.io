@@ -6,7 +6,7 @@
   <link href="https://scybd.github.io/atom.xml" rel="self"/>
   
   <link href="https://scybd.github.io/"/>
-  <updated>2024-10-13T07:28:11.601Z</updated>
+  <updated>2025-02-10T10:57:40.431Z</updated>
   <id>https://scybd.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在Ubuntu中使用vscode和gdb调试c++程序</title>
+    <link href="https://scybd.github.io/2025/02/10/%E5%9C%A8Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8vscode%E5%92%8Cgdb%E8%B0%83%E8%AF%95c++%E7%A8%8B%E5%BA%8F/"/>
+    <id>https://scybd.github.io/2025/02/10/%E5%9C%A8Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8vscode%E5%92%8Cgdb%E8%B0%83%E8%AF%95c++%E7%A8%8B%E5%BA%8F/</id>
+    <published>2025-02-10T10:50:14.000Z</published>
+    <updated>2025-02-10T10:57:40.431Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><span id="more"></span><ol><li>安装编译器和调试器，我们实际上是通过vscode使用gdb来调试程序 <code>sudo apt install g++ gcc gdb build-essential</code></li><li>在vscode中安装 <strong>C&#x2F;C++</strong> 插件：<img src="https://www.helloimg.com/i/2025/02/10/67a9d3328c870.png" alt="插件">]</li><li>创建一个工程，其结构如下：<pre><code class="bash">.├── build├── CMakeLists.txt├── include│   └── add.h├── main.cpp└── src    └── add.cpp</code></pre></li><li>工程中各文件内容如下：<ul><li>CMakeLists.txt<pre><code class="cmake">cmake_minimum_required(VERSION 3.0)project(USEDEBUG)set(CMAKE_CXX_FLAGS &quot;$&#123;CMAKE_CXX_FLAGS&#125; -Wall&quot;)set(CMAKE_BUILD_TYPE Debug) # 注意要以Debug模式编译include_directories($&#123;CMAKE_SOURCE_DIR&#125;/include)add_executable(main main.cpp src/add.cpp)</code></pre></li><li>add.h<pre><code class="cpp">#pragma once int add(int a, int b);</code></pre></li><li>add.cpp<pre><code class="cpp">#include &quot;add.h&quot;int add(int a, int b)&#123;    int c = a + b;    return c;&#125;</code></pre></li><li>main.cpp<pre><code class="cpp">#include &lt;iostream&gt;#include &quot;add.h&quot;int main()&#123;    int a = 20;    int b = 12;    std::cout &lt;&lt; &quot;a + b = &quot; &lt;&lt; add(a, b) &lt;&lt; std::endl;    return 0;&#125;</code></pre></li></ul></li><li>在工程根目录下执行以下命令编译运行程序，终端应输出<code>a + b = 32</code>：<ul><li><code>cd build</code></li><li><code>cmake ..</code></li><li><code>make</code></li><li><code>./main</code></li></ul></li></ol><h2 id="添加配置文件（在-vscode目录下）"><a href="#添加配置文件（在-vscode目录下）" class="headerlink" title="添加配置文件（在.vscode目录下）"></a>添加配置文件（在.vscode目录下）</h2><ol><li><p><strong>launch.json</strong>：配置gdb的参数，重要的参数已有注释说明</p><pre><code class="json">&#123;    &quot;version&quot;: &quot;0.2.0&quot;,    &quot;configurations&quot;: [        &#123;            &quot;name&quot;: &quot;g++ build and debug active file&quot;,            &quot;type&quot;: &quot;cppdbg&quot;,            &quot;request&quot;: &quot;launch&quot;,            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/build/main&quot;,     // 编译出来的可执行文件的路径            &quot;args&quot;: [],            &quot;stopAtEntry&quot;: false,            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,            &quot;environment&quot;: [],            &quot;externalConsole&quot;: false,            &quot;MIMode&quot;: &quot;gdb&quot;,            &quot;setupCommands&quot;: [                &#123;                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,                    &quot;ignoreFailures&quot;: true                &#125;            ],            &quot;preLaunchTask&quot;: &quot;my_build&quot;,    // 启动gdb前要做的事，和tasks.json中的label对应            &quot;miDebuggerPath&quot;: &quot;/usr/bin/gdb&quot;        &#125;    ]&#125;</code></pre></li><li><p><strong>tasks.json</strong>：自定义启动gdb前的任务，重要的参数已有注释说明</p><pre><code class="json">&#123;    &quot;version&quot;: &quot;2.0.0&quot;,    &quot;options&quot;: &#123;        &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;/build&quot;   // 执行命令的位置    &#125;,    &quot;tasks&quot;: [        &#123;            &quot;type&quot;: &quot;shell&quot;,            &quot;label&quot;: &quot;cmake&quot;,            &quot;command&quot;: &quot;cmake&quot;,            &quot;args&quot;: [                &quot;..&quot;            ]        &#125;,  // 即cmake ..        &#123;            &quot;label&quot;: &quot;make&quot;,            &quot;group&quot;: &#123;                &quot;kind&quot;: &quot;build&quot;,                &quot;isDefault&quot;: true            &#125;,            &quot;command&quot;: &quot;make&quot;,            &quot;args&quot;: [            ]        &#125;,  // 即make        &#123;            &quot;label&quot;: &quot;my_build&quot;,            &quot;dependsOrder&quot;: &quot;sequence&quot;, // 按列出的顺序执行任务            &quot;dependsOn&quot;:[                &quot;cmake&quot;,                &quot;make&quot;            ]        &#125;    ]&#125;</code></pre></li><li><p>这样配置的话在每一次的调试前都会先重新编译一次代码，避免了手动编译</p></li></ol><h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>打上断点，按<strong>F5</strong>开始调试，不出意外的话能够正常调试：<img src="https://www.helloimg.com/i/2025/02/10/67a9d3364cac3.png" alt="调试界面"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="开发环境" scheme="https://scybd.github.io/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>12V转9V转5V电源板方案分享</title>
