@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>cuda版本过低无法适配显卡</title>
+      <link href="/2025/08/17/cuda%E7%89%88%E6%9C%AC%E8%BF%87%E4%BD%8E%E6%97%A0%E6%B3%95%E9%80%82%E9%85%8D%E6%98%BE%E5%8D%A1/"/>
+      <url>/2025/08/17/cuda%E7%89%88%E6%9C%AC%E8%BF%87%E4%BD%8E%E6%97%A0%E6%B3%95%E9%80%82%E9%85%8D%E6%98%BE%E5%8D%A1/</url>
+      
+        <content type="html"><![CDATA[<p>sm_** 报错</p><span id="more"></span><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>使用<strong>A800</strong>显卡，配置了一个<code>pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.2</code>的环境，但在测试时报错如下：</p><pre><code class="bash">(thy_vln_tta) wangzixu@gpu01:~/tianhaoyuan/WS-MGMap$ pythonPython 3.6.15 | packaged by conda-forge | (default, Dec  3 2021, 18:49:41) [GCC 9.4.0] on linuxType &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.&gt;&gt;&gt; import torch&gt;&gt;&gt; torch.tensor([1.0, 2.0]).cuda()/share/home/wangzixu/miniconda3/envs/thy_vln_tta/lib/python3.6/site-packages/torch/cuda/__init__.py:125: UserWarning: NVIDIA A800 80GB PCIe with CUDA capability sm_80 is not compatible with the current PyTorch installation.The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_61 sm_70 sm_75 compute_37.If you want to use the NVIDIA A800 80GB PCIe GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/  warnings.warn(incompatible_device_warn.format(device_name, capability, &quot; &quot;.join(arch_list), device_name))</code></pre><p>这意味着当前pytorch和cuda版本过低，无法支持此显卡</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol><li>首先查看当前显卡的计算能力，访问<a href="https://developer.nvidia.com/cuda-gpus">网站1</a>，可以看到（A800是A100的中国特供版本）<img src="https://s21.ax1x.com/2025/08/17/pV0OfhT.png" alt="image1"></li><li>然后访问<a href="https://docs.nvidia.com/datacenter/tesla/drivers/index.html#cuda-toolkit-driver-and-architecture-matrix">网站2</a>，可以看到<strong>8.0</strong>的计算能力对应最低的cuda版本为<strong>11.0</strong><img src="https://s21.ax1x.com/2025/08/17/pV0Ov9O.md.png" alt="image2"></li><li>接下来就是<a href="https://pytorch.org/get-started/previous-versions/">在这</a>找到合适torch安装，pytorch和python的对应关系可以看<a href="https://docs.pytorch.org/audio/stable/installation.html#compatibility-matrix">这里</a></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 环境问题 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用SolidWorks将机器狗的装配体文件转为URDF</title>
       <link href="/2025/07/20/%E4%BD%BF%E7%94%A8SolidWorks%E5%B0%86%E6%9C%BA%E5%99%A8%E7%8B%97%E7%9A%84%E8%A3%85%E9%85%8D%E4%BD%93%E6%96%87%E4%BB%B6%E8%BD%AC%E4%B8%BAURDF/"/>
       <url>/2025/07/20/%E4%BD%BF%E7%94%A8SolidWorks%E5%B0%86%E6%9C%BA%E5%99%A8%E7%8B%97%E7%9A%84%E8%A3%85%E9%85%8D%E4%BD%93%E6%96%87%E4%BB%B6%E8%BD%AC%E4%B8%BAURDF/</url>
